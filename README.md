@@ -1,0 +1,1 @@
+# nginx_image_moodshop
