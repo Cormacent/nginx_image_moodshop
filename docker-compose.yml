@@ -27,8 +27,8 @@ services:
     #   dockerfile: Dockerfile
     ports:
       - "8089-8091:8089"
-    env_file:
-      - ./api/.env
+    # env_file:
+    #   - ./api/.env
     networks:
       - moodshopnet
     depends_on:
@@ -93,8 +93,8 @@ services:
     #   dockerfile: Dockerfile
     ports:
       - "8999:8080"
-    env_file:
-      - ./frontend/.env.local
+    # env_file:
+    #   - ./frontend/.env.local
 networks:
   moodshopnet:
     driver: bridge
