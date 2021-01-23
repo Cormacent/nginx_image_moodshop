@@ -15,10 +15,10 @@ services:
     mem_limit: 100M
     cpus: "0.25"
   api:
-    image: zakimaulana/nodejs:apimoodshop
-    build:
-      context: ./api
-      dockerfile: Dockerfile
+    image: zakimaulana/apimoodshop:master
+    # build:
+    #   context: ./api
+    #   dockerfile: Dockerfile
     ports:
       - "8089-8091:8089"
     env_file:
@@ -53,10 +53,10 @@ services:
     mem_limit: 50M
     cpus: "0.25"
   nginx:
-    image: zakimaulana/nginx:moodshop
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
+    image: zakimaulana/nginxmoodshop:master
+    # build:
+    #   context: ./nginx
+    #   dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
@@ -69,10 +69,10 @@ services:
     volumes:
       - ./shared-nginx:/shared-files
   frontend:
-    image: zakimaulana/vuejs:appmoodshop
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: zakimaulana/frontendmoodshop:master
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile
     ports:
       - "8999:8080"
     env_file:
