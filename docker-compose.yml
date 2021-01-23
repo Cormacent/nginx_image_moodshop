@@ -12,8 +12,14 @@ services:
       - POSTGRES_PASSWORD=c0b4d1b4c4
       - POSTGRES_USER=cormac
       - POSTGRES_DB=moodshop
-    mem_limit: 100M
-    cpus: "0.25"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
   api:
     image: zakimaulana/apimoodshop:master
     # build:
@@ -50,8 +56,14 @@ services:
     depends_on:
       - api
     restart: always
-    mem_limit: 50M
-    cpus: "0.25"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
   nginx:
     image: zakimaulana/nginxmoodshop:master
     # build:
@@ -77,8 +89,6 @@ services:
       - "8999:8080"
     env_file:
       - ./frontend/.env.local
-    mem_limit: 20M
-    cpus: "0.1"
 networks:
   moodshopnet:
     driver: bridge
