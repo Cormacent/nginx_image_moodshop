@@ -51,7 +51,7 @@ pipeline {
                                         transfers: [
                                             sshTransfer(
                                                 sourceFiles: '*',
-                                                execCommand: "docker pull ${image_name}; docker-compose down; docker-compose up -d",
+                                                execCommand: "docker pull ${image_name}; cd /home/developer/app; docker-compose down; docker-compose up -d",
                                                 execTimeout: 1200000
                                             )
                                         ]
@@ -77,7 +77,7 @@ pipeline {
                                         transfers: [
                                             sshTransfer(
                                                 sourceFiles: '*',
-                                                execCommand: "docker pull ${image_name}; docker-compose down; docker-compose up -d",
+                                                execCommand: "docker pull ${image_name}; cd /home/production/app; docker-compose down; docker-compose up -d",
                                                 execTimeout: 1200000
                                             )
                                         ]
