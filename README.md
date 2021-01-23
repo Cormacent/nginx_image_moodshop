@@ -6,6 +6,8 @@
 rootfolder
     - docker-compose.yml
     - nginx (folder)
-    - pgdata (folder)
+    - pgdata (folder & created manualy add permission so other can access)
     - frontend (this is moodshop frontend) (folder)
     - api (this is backend frontend) (folder)
+```
+pgdata folder isi use for store database from postgres
