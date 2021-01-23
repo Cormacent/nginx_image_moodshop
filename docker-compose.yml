@@ -1,0 +1,76 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5060:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - moodshopnet
+    environment:
+      - POSTGRES_PASSWORD=c0b4d1b4c4
+      - POSTGRES_USER=cormac
+      - POSTGRES_DB=moodshop
+    mem_limit: 100M
+    cpus: "0.25"
+  api:
+    image: zakimaulana/nodejs:apimoodshop
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8089-8091:8089"
+    env_file:
+      - ./api/.env
+    networks:
+      - moodshopnet
+    depends_on:
+      - postgres
+    mem_limit: 100M
+    cpus: "0.25"
+    volumes:
+      - ./shared-api:/shared-files
+  redis:
+    image: redis:5.0.10-alpine
+    environment:
+      - REDIS_PASSWORD=c0b4d1b4c4
+    ports:
+      - "6969:6379"
+    networks:
+      - moodshopnet
+    depends_on:
+      - api
+    restart: always
+    mem_limit: 50M
+    cpus: "0.25"
+  nginx:
+    image: zakimaulana/nginx:moodshop
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - moodshopnet
+    depends_on:
+      - frontend
+    mem_limit: 20M
+    cpus: "0.1"
+    volumes:
+      - ./shared-nginx:/shared-files
+  frontend:
+    image: zakimaulana/vuejs:appmoodshop
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8999:8080"
+    env_file:
+      - ./frontend/.env.local
+    mem_limit: 20M
+    cpus: "0.1"
+networks:
+  moodshopnet:
+    driver: bridge
