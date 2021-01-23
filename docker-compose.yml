@@ -27,8 +27,16 @@ services:
       - moodshopnet
     depends_on:
       - postgres
-    mem_limit: 100M
-    cpus: "0.25"
+    deploy:
+      mode: replicated
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
     volumes:
       - ./shared-api:/shared-files
   redis:
