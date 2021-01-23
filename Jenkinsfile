@@ -47,7 +47,7 @@ pipeline {
                                 publishers: [
                                     sshPublisherDesc(
                                         configName: 'development',
-                                        verbose: false,
+                                        verbose: true,
                                         transfers: [
                                             sshTransfer(
                                                 sourceFiles: '*',
@@ -77,7 +77,7 @@ pipeline {
                                         transfers: [
                                             sshTransfer(
                                                 sourceFiles: '*',
-                                                execCommand: "docker pull ${image_name}; docker-compose up -d",
+                                                execCommand: "docker pull ${image_name}; docker-compose down; docker-compose up -d",
                                                 execTimeout: 1200000
                                             )
                                         ]
