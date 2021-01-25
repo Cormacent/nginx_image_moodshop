@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.8"
 services:
   postgres:
     image: postgres:latest
@@ -12,14 +12,8 @@ services:
       - POSTGRES_PASSWORD=c0b4d1b4c4
       - POSTGRES_USER=cormac
       - POSTGRES_DB=moodshop
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: 100M
-        reservations:
-          cpus: '0.25'
-          memory: 20M
+    mem_limit: 100M
+    cpus: "0.25"
   api:
     image: zakimaulana/apimoodshop:master
     # build:
@@ -56,14 +50,8 @@ services:
     depends_on:
       - api
     restart: always
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
-        reservations:
-          cpus: '0.25'
-          memory: 20M
+    mem_limit: 50M
+    cpus: "0.50"
   nginx:
     image: zakimaulana/nginxmoodshop:master
     # build:
@@ -76,14 +64,8 @@ services:
       - moodshopnet
     depends_on:
       - frontend
-    deploy:
-      resources:
-        limits:
-          cpus: '0.20'
-          memory: 50M
-        reservations:
-          cpus: '0.1'
-          memory: 20M
+    mem_limit: 20M
+    cpus: "0.50"
     volumes:
       - ./shared-nginx:/shared-files
   frontend:
